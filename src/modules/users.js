@@ -23,6 +23,7 @@ async function decodeToken(token) {
 
 function generateJwtTokenForUser({ userId }) {
   return jwt.sign({ userId }, config.secret, {
+    algorithm: 'HS512', // HMAC using SHA-512 hash algorithm
     expiresIn: 60 * 60 * 24 * 7, // expires in a week
   });
 }
