@@ -1,25 +1,25 @@
-'use strict';
-const usersModule = require('../modules/users');
+'use strict'
+const usersModule = require('../modules/users')
 
 /*
  *  Generic require login routing middleware
  */
 const requiresLogin = async function(req, res, next) {
-    const token = req.headers['x-access-token'];
+    const token = req.headers['x-access-token']
     if (!token) {
-        return res.status(401).json({ auth: false, message: 'No token provided.' });
+        return res.status(401).json({ auth: false, message: 'No token provided.' })
     }
 
     try {
-        req.decodedToken = await usersModule.decodeToken(token);
-        return next();
+        req.decodedToken = await usersModule.decodeToken(token)
+        return next()
     } catch (error) {
-        return res.status(401).send({ auth: false, message: error.message });
+        return res.status(401).send({ auth: false, message: error.message })
     }
-};
+}
 module.exports = {
   requiresLogin,
-};
+}
 
 // module.exports.requiresLogin = function (req, res, next) {
 //     let token = req.headers['x-access-token'];

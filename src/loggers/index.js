@@ -1,8 +1,8 @@
-const winston = require('winston');
-const path = require('path');
+const winston = require('winston')
+const path = require('path')
 
-const infoFile = path.join(__dirname, '../../logs/app.log');
-const errorFile = path.join(__dirname, '../../logs/errors.log');
+const infoFile = path.join(__dirname, '../../logs/app.log')
+const errorFile = path.join(__dirname, '../../logs/errors.log')
 
 const options = {
   file: {
@@ -32,7 +32,7 @@ const options = {
     colorize: false,
     timestamp: true,
   },
-};
+}
 
 const logger = winston.createLogger({
   format: winston.format.json(),
@@ -42,11 +42,11 @@ const logger = winston.createLogger({
     new winston.transports.Console(options.console),
   ],
   exitOnError: false, // do not exit on handled exceptions
-});
+})
 
 logger.stream = {
   write: function(message) {
-    logger.info(message);
+    logger.info(message)
   },
-};
-module.exports = logger;
+}
+module.exports = logger

@@ -1,6 +1,6 @@
-'use strict';
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+'use strict'
+const jwt = require('jsonwebtoken')
+const config = require('../config')
 
 
 /**
@@ -12,12 +12,12 @@ async function decodeToken(token) {
   return new Promise((resolve, reject) => {
     jwt.verify(token, config.secret, function(err, decoded) {
       if (err) {
-        reject(err);
+        reject(err)
       }
 
-      resolve(decoded);
-    });
-  });
+      resolve(decoded)
+    })
+  })
 }
 
 
@@ -25,16 +25,16 @@ function generateJwtTokenForUser({ userId }) {
   return jwt.sign({ userId }, config.secret, {
     algorithm: 'HS512', // HMAC using SHA-512 hash algorithm
     expiresIn: 60 * 60 * 24 * 7, // expires in a week
-  });
+  })
 }
 
 async function verifyMe({ userId }, token) {
   try {
-    const decodedToken = await decodeToken(token);
+    const decodedToken = await decodeToken(token)
     if (userId === decodedToken.userId) {
       return {
         auth: true,
-      };
+      }
     } else {
       return {
         auth: false,
@@ -53,4 +53,4 @@ module.exports = {
   generateJwtTokenForUser,
   verifyMe,
   decodeToken,
-};
+}

@@ -1,20 +1,24 @@
-'use strict';
+'use strict'
 module.exports = function (app) {
-  const express = require('express');
+  const express = require('express')
   const { asyncErrorWrapper } = require('../utils')
+  const { requiresLogin } = require('../middlewares/authorization')
 
-  const apiRouter = express.Router();
-  app.use('/api', apiRouter);
+  const apiRouter = express.Router()
+  app.use('/api', apiRouter)
 
   apiRouter.get('/hello', asyncErrorWrapper(async function(req, res) {
-    res.send('Hello World');
-  }));
+    res.send('Hello World')
+  }))
 
-  const authenticationRouter = require('./authentications');
+  const authenticationRouter = require('./authentications')
   apiRouter.use('/authentications', authenticationRouter)
 
-  const usersRouter = require('./users');
+  const usersRouter = require('./users')
   apiRouter.use('/users', usersRouter)
+
+  const userGroupsRouter = require('./userGroups')
+  apiRouter.use('/userGroups', requiresLogin, userGroupsRouter)
 
   // const formsRouter = require('./forms');
   // apiRouter.use('/forms', formsRouter);
@@ -35,4 +39,4 @@ module.exports = function (app) {
   //
 
 
-};
+}

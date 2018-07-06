@@ -1,6 +1,6 @@
 
 module.exports = function (app) {
-  const logger = require('../loggers');
+  const logger = require('../loggers')
 
   const logErrors = function (err, req, res, next) {
     // logger.log({

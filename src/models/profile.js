@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 // todo check email format
 // todo prevent email changing
-const mongoose = require('mongoose');
-const timestamps = require('mongoose-timestamp');
+const mongoose = require('mongoose')
+const timestamps = require('mongoose-timestamp')
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const { UserSchemaString } = require('./user')
-const ProfileSchemaString = 'Profile';
+const ProfileSchemaString = 'Profile'
 
 
 const ProfileSchema = new Schema({
@@ -45,11 +45,11 @@ const ProfileSchema = new Schema({
     index: true,
     required: true,
   },
-});
+})
 
 ProfileSchema.statics = {
   createProfileByUserId: async function({ userId, email, phone, gender, description, fullName }) {
-    return this({
+    return new this({
       email,
       phone,
       gender,
@@ -80,10 +80,10 @@ ProfileSchema.statics = {
 ProfileSchema.plugin(timestamps, {
   createdAt: { index: true },
   updatedAt: { index: true },
-});
+})
 
-mongoose.model(ProfileSchemaString, ProfileSchema);
+mongoose.model(ProfileSchemaString, ProfileSchema)
 
 module.exports = {
   ProfileSchemaString,
-};
+}
