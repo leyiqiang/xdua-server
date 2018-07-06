@@ -7,6 +7,7 @@ module.exports = function (app) {
     //   level: 'error',
     //   message: err.stack,
     // })
+    console.error(err)
     logger.log('error', err.stack)
     next(err)
   }

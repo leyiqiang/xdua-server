@@ -3,7 +3,7 @@ const path = require('path');
 
 const infoFile = path.join(__dirname, '../../logs/app.log');
 const errorFile = path.join(__dirname, '../../logs/errors.log');
-console.log(infoFile)
+
 const options = {
   file: {
     level: 'info',

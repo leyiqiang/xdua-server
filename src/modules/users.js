@@ -21,17 +21,16 @@ async function decodeToken(token) {
 }
 
 
-function generateJwtTokenForUser({_id}) {
-  return jwt.sign({ id: _id }, config.secret, {
-    algorithm: 'RS512', // RSASSA using SHA-512 hash algorithm
+function generateJwtTokenForUser({ userId }) {
+  return jwt.sign({ userId }, config.secret, {
     expiresIn: 60 * 60 * 24 * 7, // expires in a week
   });
 }
 
-async function verifyMe({ _id }, token) {
+async function verifyMe({ userId }, token) {
   try {
     const decodedToken = await decodeToken(token);
-    if (_id === decodedToken.id) {
+    if (userId === decodedToken.userId) {
       return {
         auth: true,
       };

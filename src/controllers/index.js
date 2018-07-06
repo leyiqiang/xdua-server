@@ -1,33 +1,18 @@
 'use strict';
 module.exports = function (app) {
   const express = require('express');
+  const { asyncErrorWrapper } = require('../utils')
 
   const apiRouter = express.Router();
   app.use('/api', apiRouter);
-  const asyncErrorWrapper = function (fn) {
-    return (req, res, next) => {
-      fn(req, res, next)
-        .catch(e => {
-          next(e)
-        })
-    }
-  }
-
-  async function test() {
-    return new Promise(function(resolve, reject) {
-      setTimeout(reject, 100, new Error('foo'));
-    });
-  }
-
-  apiRouter.get('/hi', async function(req, res) {
-    await test()
-    res.send('Hello World');
-  });
 
   apiRouter.get('/hello', asyncErrorWrapper(async function(req, res) {
-    await test()
     res.send('Hello World');
   }));
+
+  const authenticationRouter = require('./authentications');
+  apiRouter.use('/authentications', authenticationRouter)
+
   const usersRouter = require('./users');
   apiRouter.use('/users', usersRouter)
 
